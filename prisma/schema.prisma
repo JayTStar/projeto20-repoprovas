@@ -10,49 +10,53 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-
 model Users {
-  id        Int       @id @default(autoincrement())
-  email     String    @unique
-  password  String    
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
 }
 
 model Categories {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
+  id    Int     @id @default(autoincrement())
+  name  String  @unique
+  Tests Tests[]
 }
 
 model Tests {
-  id                      Int                     @id @default(autoincrement())
-  name                    String
-  pdfUrl                  String
-  category                Category?               @relation(fields:[categoryId], references:[id])
-  categoryId              Int
-  dicipline               TeachersDiciplines?     @relation(fields:[teachersDiciplinesId], references:[id])
-  teachersDiciplinesId    Int
+  id                   Int                 @id @default(autoincrement())
+  name                 String
+  pdfUrl               String
+  category             Categories?         @relation(fields: [categoryId], references: [id])
+  categoryId           Int
+  dicipline            TeachersDiciplines? @relation(fields: [teachersDiciplinesId], references: [id])
+  teachersDiciplinesId Int
 }
 
 model Diciplines {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
-  term      Terms?    @relation(fields:[termId], references:[id])
-  termId    Int
+  id                 Int                  @id @default(autoincrement())
+  name               String               @unique
+  term               Terms?               @relation(fields: [termId], references: [id])
+  termId             Int
+  TeachersDiciplines TeachersDiciplines[]
 }
 
 model TeachersDiciplines {
-  id            Int           @id @default(autoincrement())
-  teacher       Teachers?     @relation(fields:[teacherId], references:[id])
-  teacherId     Int
-  dicipline     Diciplines?   @relation(fields:[diciplineId], references:[id])
-  diciplineId   Int
+  id          Int         @id @default(autoincrement())
+  teacher     Teachers?   @relation(fields: [teacherId], references: [id])
+  teacherId   Int
+  dicipline   Diciplines? @relation(fields: [diciplineId], references: [id])
+  diciplineId Int
+  Tests       Tests[]
 }
 
 model Terms {
-  id        Int       @id @default(autoincrement())
-  number    Int       @unique
+  id         Int          @id @default(autoincrement())
+  number     Int          @unique
+  Diciplines Diciplines[]
 }
 
 model Teachers {
-  id        Int       @id @default(autoincrement())
-  name      String    @unique
+  id                 Int                  @id @default(autoincrement())
+  name               String               @unique
+  TeachersDiciplines TeachersDiciplines[]
 }
