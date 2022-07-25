@@ -9,3 +9,5 @@ const userRouter = Router();
 
 userRouter.post("/sign-up", validateSchema(userSchemas.signUpSchema), userController.signup);
 userRouter.get("/sign-in", validateSchema(userSchemas.signInSchema), );
+
+export default userRouter

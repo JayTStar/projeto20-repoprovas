@@ -10,3 +10,11 @@ export async function signup(req: Request, res: Response) {
 
     res.sendStatus(201);
 }
+
+export async function signin(req: Request, res: Response) {
+    const user: UserData = req.body;
+
+    const token = await userServices.signin(user);
+
+    res.send(token);
+}
